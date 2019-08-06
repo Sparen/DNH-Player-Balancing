@@ -10,11 +10,12 @@
     // Set Common Data
     SetAreaCommonData("dnhapm", "ScriptName", "Player Balancing");
     SetAreaCommonData("dnhapm", "UserNoteSlots", 4);
-    SetAreaCommonData("dnhapm", "GraphScale", 8);
+    SetAreaCommonData("dnhapm", "GraphScale", 10);
     SetAreaCommonData("dnhapm", "EnableAggregate", false);
 
     // Disable things we don't need
     SetAreaCommonData("dnhapm", "ShotCountEnable", false);
+    SetAreaCommonData("dnhapm", "GrazeEnable", false);
     StartScript(apm);
 }
 
