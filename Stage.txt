@@ -1,0 +1,46 @@
+#TouhouDanmakufu[Stage]
+#Title["Player Balancing"]
+#Text["Player Balancing Script[r]By Sparen"]
+#ScriptVersion[3]
+
+#include "./FxnList.txt"
+
+@Loading {
+    let apm = LoadScript(GetCurrentScriptDirectory() ~ "./SparenDNHAPM.dnh");
+    // Set Common Data
+    SetAreaCommonData("dnhapm", "ScriptName", "Player Balancing");
+    SetAreaCommonData("dnhapm", "UserNoteSlots", 4);
+    SetAreaCommonData("dnhapm", "GraphScale", 8);
+    SetAreaCommonData("dnhapm", "EnableAggregate", false);
+
+    // Disable things we don't need
+    SetAreaCommonData("dnhapm", "ShotCountEnable", false);
+    StartScript(apm);
+}
+
+@Initialize{
+    TStage;
+    SetPlayerLife(1000);
+}
+
+@MainLoop{
+    yield;
+}
+
+task TStage{
+    let dir = GetCurrentScriptDirectory();
+    let pathboss = dir ~ "./script/Boss.txt";
+    let bossScript = LoadScriptInThread(pathboss);
+
+    StartScript(bossScript);
+    while(!IsCloseScript(bossScript) && GetPlayerState() != STATE_END){
+      yield;
+    }
+
+    // Report Generation
+    NotifyEventAll(EV_USER_STAGE + 2048, "");
+
+    wait(60);
+
+    CloseStgScene();
+}
